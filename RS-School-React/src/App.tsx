@@ -1,35 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-mixed-spaces-and-tabs */
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Component, ReactNode } from 'react';
+import './App.css';
+import ErrorBoundary from './components/ErrorBoundary';
+import Search from './components/Search';
+import Results from './components/Results';
+import Result from './components/Result';
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface State {
+items: Array<{ name: string; url: string }>
+item: { name: string; url: string } | null;
+error: Error | null
 }
 
-export default App
+interface Props {
+children: ReactNode;
+}
+
+interface BerryType {
+name: string
+url: string
+}
+
+class App extends Component<Props, State> {
+constructor(props: Props) {
+super(props);
+this.state = {
+items: [],
+item: null,
+error: null
+};
+}
+
+componentDidMount() {
+this.performSearch();
+}
+
+performSearch = () => {
+
+const apiUrl = `https://pokeapi.co/api/v2/berry/?limit=100000&offset=0`;
+
+fetch(apiUrl)
+.then(response => response.json())
+.then(data => {
+	const items = data.results.map((berry: BerryType) => ({
+		name: berry.name,
+		url: berry.url,
+	}));
+	this.setState({ items });
+})
+.catch(error => this.setState({ error }));
+}
+
+handleSearch = (searchTerm: string) => {
+const filteredItem = this.state.items.filter((item: BerryType) => item.name === searchTerm);
+const item = filteredItem.length > 0 ? filteredItem[0] : null;
+this.setState({ item });
+}
+
+handleThrowError = () => {
+throw new Error('Test Error');
+}
+
+render() {
+return (
+
+	<ErrorBoundary >
+		<div className='top'>
+			<Search onSearch={this.handleSearch} onThrowError={this.handleThrowError} />
+			</div>
+			<div className='bottom'>
+			{ this.state.item
+				? <Result item = {this.state.item}/>
+				: <Results items = { this.state.items} />
+			}
+			</div>
+	</ErrorBoundary>
+);
+}
+}
+
+export default App;
+
