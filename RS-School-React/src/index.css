@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+	background-color: #e1f1fa;
 }
 :focus, :active {
 	outline: none;

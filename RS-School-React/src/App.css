@@ -1,8 +1,8 @@
 #root {
   width: 100%;
   text-align: center;
+  background-color: #e1f1fa;
 }
-
 
 .top {
 	height: 20vh;
@@ -13,20 +13,10 @@
 }
 
 .bottom {
-	background-color: #e1f1fa;
 	padding: 30px;
 	display: flex;
 	justify-content: center;
-}
-
-.search {
-	width: fit-content;
-	height: 40px;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	gap: 20px;
-
+	height: 100%;
 }
 
 .input {
@@ -69,38 +59,7 @@
 	border: 2px solid #4c9bcf;
 }
 
-.button_error {
-	background: #265470;
-	border-color:#265470;
-}
 
-.results {
-	color: #265470;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr;
-	gap: 20px;
-	justify-content: space-around;
-	align-content: center;
-}
-
-.result {
-	max-width: 500px;
-	padding: 20px;
-	height: 100px;
-	background-color: #e1f1fa;
-	border: 2px solid #265470;
-	border-radius: 10px;
-}
-
-.result  {
-	font-size: 18px;
-}
-
-.result h3 {
-	font-size: 20px;
-	text-transform: uppercase;
-}
 
 .preloader {
 	position: absolute;

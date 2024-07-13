@@ -24,7 +24,7 @@ render() {
 	if (this.state.hasError) {
 		return (
 		<div>
-			<h1>Something went wrong...</h1>
+			<h1 className='error_text'>Something went wrong...</h1>
 		</div>
 		);
 	}

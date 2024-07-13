@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { Component } from 'react';
+import "./Result.css"
 
 interface Props {
   item: { 
