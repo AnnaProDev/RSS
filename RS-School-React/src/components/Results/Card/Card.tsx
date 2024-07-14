@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
-import "./Result.css"
+import "./Card.css"
 
 interface Props {
 	name: string

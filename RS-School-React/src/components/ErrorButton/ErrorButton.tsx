@@ -8,8 +8,6 @@ const ErrorButton = () => {
 
 	const handleClick = () => {
 		setHasError(true)
-
-		
 	};	
 
 		if (hasError) {

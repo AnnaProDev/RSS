@@ -3,7 +3,7 @@ import "./Page404.css"
 const Page404 = () => {
 	return (
 	<div className="error-page">
-		<p>404</p>
+		<img src="https://static.vecteezy.com/system/resources/previews/015/131/133/original/crossing-sign-error-404-png.png" alt="error404"></img>
 	</div>	
 	)
 }

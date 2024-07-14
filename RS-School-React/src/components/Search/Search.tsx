@@ -26,18 +26,20 @@ const handleSearch = () => {
 };
 
 	return (
-	<div className="search">
-		<input
-			className="input"
-			type="text"
-			value={searchTerm}
-			onChange={handleChange}
-			placeholder="Enter berry name"
-		/>
-		<button className="button" onClick={handleSearch}>
-			Search
-		</button>
-		<ErrorButton />
+		<div className="top">
+		<div className="search">
+			<input
+				className="input"
+				type="text"
+				value={searchTerm}
+				onChange={handleChange}
+				placeholder="Enter berry name"
+			/>
+			<button className="button" onClick={handleSearch}>
+				Search
+			</button>
+			<ErrorButton />
+		</div>
 	</div>
 	);
 }
