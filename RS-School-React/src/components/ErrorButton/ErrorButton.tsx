@@ -1,13 +1,17 @@
 import { useState } from "react";
+import "./ErrorButton.css"
 
 
-const ErrorButton : React.FC = () => {
+const ErrorButton = () => {
 
 	const [hasError, setHasError] = useState(false)
 
 	const handleClick = () => {
 		setHasError(true)
-	};		
+
+		
+	};	
+
 		if (hasError) {
 		throw new Error('Error...');
 		}

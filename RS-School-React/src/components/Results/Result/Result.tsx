@@ -1,25 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { Component } from 'react';
 import "./Result.css"
 
 interface Props {
-  item: { 
-	name: string; 
-	url: string 
-	};
+	name: string
+	url: string
 }
 
-class Result extends Component<Props> {
-  render() {
-    const { item } = this.props;
+
+const Result = (props: Props) => {
+
+	console.log(props);
+	
     return (
       <div className='result'>
-			<h3>{item.name}</h3>
-			<p>Link: {item.url}</p>
+			<h3>{props.name}</h3>
+			<p>{props.url}</p>
       </div>
     );
   }
-}
 
 export default Result;

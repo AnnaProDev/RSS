@@ -1,9 +1,7 @@
-import { Component } from 'react';
 import "./Preloader.css"
 
+const Preloader = () => {
 
-class Loader extends Component {
-render() {
 	return (
 		<div className='preloader'>
 			<div className="lds-ripple"><div></div><div></div></div>
@@ -11,6 +9,5 @@ render() {
 
 	);
 }
-}
 
-export default Loader;
+export default Preloader;

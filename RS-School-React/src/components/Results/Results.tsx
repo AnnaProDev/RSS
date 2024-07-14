@@ -1,26 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { Component } from "react";
+import { ItemInterface } from "../../interfaces/interfaces";
 import Result from "./Result/Result";
 import "./Results.css"
 
 interface Props {
-  items: Array<{ name: string; url: string }>;
+  items: Array<ItemInterface>;
 }
 
-class Results extends Component<Props> {
-  render() {
-    const { items } = this.props;
+const Results = (props: Props) => {
+	
+
     return (
       <div className="results">
-        {items.map((item, id) => (
+        {props.items.map((item, id) => (
           <div key={id}>
-            <Result item={item} />
+            <Result name={item.name} url={item.url} />
           </div>
         ))}
       </div>
     );
   }
-}
 
 export default Results;

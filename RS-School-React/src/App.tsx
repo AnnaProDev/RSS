@@ -1,84 +1,51 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import Search from "./components/Search/Search";
 import Results from "./components/Results/Results";
 import Preloader from "./components/common/Preloader/Preloader";
-import Result from "./components/Results/Result/Result";
 
-interface State {
-  items: Array<{ name: string; url: string }>;
-  item: { name: string; url: string } | null;
-  isLoading: boolean;
-}
+const App = () => {
 
-interface Props {
-  setLoading: (isLoading: boolean) => void;
-}
+const [ items, setItems] = useState([]);
+const [ isLoading, setIsLoading] = useState(true)
 
-interface BerryType {
-  name: string;
-  url: string;
-}
+useEffect(() => {
+	performSearch("");
+	}, []);
 
-class App extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      items: [],
-      item: null,
-      isLoading: true,
-    };
-  }
+const performSearch = (searchTerm: string) => {
 
-  componentDidMount() {
-    this.performSearch();
-  }
+const query = searchTerm ? `?search=${searchTerm}` : '';
+fetch(`https://swapi.dev/api/people/${query}`)
+	.then((response) => response.json())
+	.then((data) => {
+		localStorage.setItem('searchResults', JSON.stringify(data.results));
+		setItems(data.results)
+		setIsLoading(false);
+		console.log(data.results);
+		
+	})
+	.catch((error) => console.error("Error fetching data:", error));
+};
 
-  performSearch = () => {
-    const apiUrl = `https://pokeapi.co/api/v2/berry/?limit=100000&offset=0`;
-
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        const items = data.results.map((berry: BerryType) => ({
-          name: berry.name,
-          url: berry.url,
-        }));
-        this.setState({ items, isLoading: false });
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  };
-
-  handleSearch = (searchTerm: string) => {
-    const filteredItem = this.state.items.filter(
-      (item: BerryType) => item.name === searchTerm
-    );
-    const item = filteredItem.length > 0 ? filteredItem[0] : null;
-    this.setState({ item });
-  };
-
-  render() {
-    return (
-      <ErrorBoundary>
-        <div className="top">
-          <Search onSearch={this.handleSearch} />
-        </div>
-        <div className="bottom">
-          {this.state.isLoading ? (
-            <Preloader />
-          ) : this.state.item ? (
-            <Result item={this.state.item} />
-          ) : (
-            <Results items={this.state.items} />
-          )}
-        </div>
-      </ErrorBoundary>
-    );
-  }
+	return (
+	<ErrorBoundary>
+		<div className="top">
+			<Search onSearch={performSearch} />
+		</div>
+		<div className="bottom">
+			{isLoading ? 
+			<Preloader />
+			: (
+			<Results items={items} />
+			)}
+		</div>
+	</ErrorBoundary>
+	);
 }
 
 export default App;

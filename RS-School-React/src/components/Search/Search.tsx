@@ -1,51 +1,45 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { Component, ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import ErrorButton from "../ErrorButton/ErrorButton";
 import "./Search.css"
 
 interface Props {
-  onSearch: (searchTerm: string) => void;
+onSearch: (searchTerm: string) => void;
 }
 
-interface State {
-  searchTerm: string;
-}
+const Search = (props: Props) => {
 
-class Search extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    const savedSearchTerm = localStorage.getItem("searchTerm") || "";
-    this.state = { searchTerm: savedSearchTerm };
-  }
+	const [searchTerm, setSearchTerm] = useState<string>(() => {
+		return localStorage.getItem("searchTerm") || "";
+	 });
 
-  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: event.target.value });
-  };
 
-  handleSearch = () => {
-    const searchTerm = this.state.searchTerm.trim();
-    localStorage.setItem("searchTerm", searchTerm);
-    this.props.onSearch(searchTerm);
-  };
+const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+	setSearchTerm( event.target.value );
+};
 
-  render() {
-    return (
-      <div className="search">
-        <input
-          className="input"
-          type="text"
-          value={this.state.searchTerm}
-          onChange={this.handleChange}
-          placeholder="Enter berry name"
-        />
-        <button className="button" onClick={this.handleSearch}>
-          Search
-        </button>
-        <ErrorButton hasError={false} />
-      </div>
-    );
-  }
+const handleSearch = () => {
+	const trimmedSearchTerm = searchTerm.trim();
+	localStorage.setItem("searchTerm", trimmedSearchTerm);
+	props.onSearch(searchTerm);
+};
+
+	return (
+	<div className="search">
+		<input
+			className="input"
+			type="text"
+			value={searchTerm}
+			onChange={handleChange}
+			placeholder="Enter berry name"
+		/>
+		<button className="button" onClick={handleSearch}>
+			Search
+		</button>
+		<ErrorButton />
+	</div>
+	);
 }
 
 export default Search;
