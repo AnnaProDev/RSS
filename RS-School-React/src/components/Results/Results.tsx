@@ -1,18 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { ItemInterface } from "../../interfaces/interfaces";
 import Card from "./Card/Card";
-import "./Results.css"
+import style from "./Results.module.css"
 
+interface ItemInterface {
+	name: string
+	url: string
+}
 interface Props {
   items: Array<ItemInterface>;
 }
 
-const Results = (props: Props) => {
+const Results: React.FC <Props> = (props) => {
 
     return (
-		<div className="bottom">
-			<div className="results">
+		<div className={style.bottom}>
+			<div className={style.results}>
 			{props.items.map((item, id) => (
 				<div key={id}>
 					<Card name={item.name} url={item.url} />

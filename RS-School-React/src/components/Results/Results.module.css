@@ -7,3 +7,11 @@
 	justify-content: space-around;
 	align-content: center;
 }
+
+.bottom {
+	padding: 30px;
+	display: flex;
+	justify-content: center;
+	height: 100%;
+}
+

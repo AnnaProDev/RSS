@@ -2,13 +2,12 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { ChangeEvent, useState } from "react";
 import ErrorButton from "../ErrorButton/ErrorButton";
-import "./Search.css"
-
+import style from "./Search.module.css"
 interface Props {
 onSearch: (searchTerm: string) => void;
 }
 
-const Search = (props: Props) => {
+const Search: React.FC<Props> = (props: Props) => {
 
 	const [searchTerm, setSearchTerm] = useState<string>(() => {
 		return localStorage.getItem("searchTerm") || "";
@@ -26,16 +25,16 @@ const handleSearch = () => {
 };
 
 	return (
-		<div className="top">
-		<div className="search">
+		<div className={style.top}>
+		<div className={style.search}>
 			<input
-				className="input"
+				className={style.input}
 				type="text"
 				value={searchTerm}
 				onChange={handleChange}
-				placeholder="Enter berry name"
+				placeholder="Enter name"
 			/>
-			<button className="button" onClick={handleSearch}>
+			<button className={style.button} onClick={handleSearch}>
 				Search
 			</button>
 			<ErrorButton />

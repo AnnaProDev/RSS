@@ -1,8 +1,8 @@
-import "./Page404.css"
+import style from "./Page404.module.css"
 
-const Page404 = () => {
+const Page404: React.FC = () => {
 	return (
-	<div className="error-page">
+	<div className={style.error_page}>
 		<img src="https://static.vecteezy.com/system/resources/previews/015/131/133/original/crossing-sign-error-404-png.png" alt="error404"></img>
 	</div>	
 	)
